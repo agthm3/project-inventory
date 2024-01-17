@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\InputDataController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestMaterialController;
+use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +20,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/input-data', [InputDataController::class, 'index'])->name('inputdata.index');
+Route::post('/input-data/create', [InputDataController::class, 'store'])->name('inputdata.store');
+Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+Route::get('/request-material', [RequestMaterialController::class, 'index'])->name('requestmaterial.index');
+Route::get('/verification', [VerificationController::class, 'index'])->name('verification.index');
+Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';
