@@ -47,22 +47,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Air Conditioner</td>
-                                            <td>2308237</td>
-                                            <td>Apr 20,2018</td>
-                                            <td><span class="badge badge-primary">70%</span></td>
-                                            <td>
-                                                <span>
-                                                    <a href="javascript:void()" class="mr-4" data-toggle="tooltip"
-                                                        data-placement="top" title="Edit"><i
-                                                            class="fa fa-pencil color-muted"></i>
-                                                    </a>
-                                                    <a href="javascript:void()" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a>
-                                                </span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($allInventory as $item)
+                                            <tr>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->ponumber }}</td>
+                                                <td>{{ $item->verificationdate }}</td>
+                                                <td> <span
+                                                        class="badge 
+                {{ $item->quantity < 50 ? 'badge-danger' : ($item->quantity <= 80 ? 'badge-warning' : 'badge-success') }}">
+                                                        {{ $item->quantity }}
+                                                    </span></td>
+                                                <td>
+                                                    <span>
+                                                        <a href="{{ route('inventory.show', $item) }}" class="mr-4"
+                                                            data-toggle="tooltip" data-placement="top"
+                                                            title="Edit"><button class="btn btn-primary">Detail</button>
+                                                        </a>
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

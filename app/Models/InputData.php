@@ -22,6 +22,5 @@ class InputData extends Model
        'remark',
     'image'
     ];
-
-
+   
 }

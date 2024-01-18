@@ -21,9 +21,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+// input data
 Route::get('/input-data', [InputDataController::class, 'index'])->name('inputdata.index');
 Route::post('/input-data/create', [InputDataController::class, 'store'])->name('inputdata.store');
+Route::get('/inventory/edit/{inputData}', [InputDataController::class, 'edit'])->name('inputdata.edit');
+Route::patch('/inventory/edit/{inputData}', [InputDataController::class, 'update'])->name('inputdata.update');
+
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+Route::get('/inventory/{inputData}', [InventoryController::class, 'show'])->name('inventory.show');
+
+
 Route::get('/request-material', [RequestMaterialController::class, 'index'])->name('requestmaterial.index');
 Route::get('/verification', [VerificationController::class, 'index'])->name('verification.index');
 Route::get('/history', [HistoryController::class, 'index'])->name('history.index');

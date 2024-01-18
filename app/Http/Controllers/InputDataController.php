@@ -80,7 +80,7 @@ class InputDataController extends Controller
      */
     public function edit(InputData $inputData)
     {
-        //
+        return view('dashboard.inventory.edit', compact('inputData'));
     }
 
     /**
@@ -88,7 +88,49 @@ class InputDataController extends Controller
      */
     public function update(Request $request, InputData $inputData)
     {
-        //
+
+      $request->validate([
+        'name'=>'required|max:255',
+        'verificationdate' =>'date|required',
+        'ponumber'=> 'required|numeric',
+        'deskripsi' => 'required|max:255',
+        'quantity' => 'required|max:255',
+        'receivedby'=> 'required',
+        'user' => 'required|max:255',
+        'storagelocation' => 'required|max:255',
+        'vehiclenumber' => 'required|max:255',
+        'supplier'=> 'required|max:255',
+        'remark' => 'required|max:255',
+        'image' => 'image|sometimes'
+    ]);
+       
+    if ($request->hasFile('image')) {
+        // Hapus file gambar lama dari storage
+        if ($inputData->image && Storage::disk('local')->exists('public/' . $inputData->image)) {
+            Storage::disk('local')->delete('public/' . $inputData->image);
+        }
+
+        // Simpan file gambar baru
+        $file = $request->file('image');
+        $path = time() . '_' . $request->name . '.' . $file->getClientOriginalExtension();
+        Storage::disk('local')->put('public/'. $path, file_get_contents($file));
+        $inputData->image = $path; // Perbarui path gambar
+    }
+        $inputData->update([
+            'name' => $request->name,
+            'verificationdate'=> $request->verificationdate,
+            'ponumber'=> $request->ponumber,
+            'deskripsi' => $request->deskripsi,
+            'quantity'=> $request-> quantity,
+            'receivedby'=> $request-> receivedby,
+            'user'=> $request->user,
+            'storagelocation'=> $request->storagelocation,
+            'vehiclenumber'=> $request->vehiclenumber,
+            'supplier'=> $request-> supplier,
+            'remark'=> $request->remark,
+            'image'=> $inputData->image,
+        ]);
+        return Redirect::back();
     }
 
     /**

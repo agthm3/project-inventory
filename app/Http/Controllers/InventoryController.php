@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InputData;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        return view('dashboard.inventory.index');
+        $allInventory = InputData::all();
+        return view('dashboard.inventory.index', compact('allInventory'));
     }
 
     /**
@@ -34,9 +36,10 @@ class InventoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Inventory $inventory)
+    public function show( inputData $inputData)
     {
-        //
+        // $inputData = InputData::where('name', $productName)->firstOrFail();
+        return view('dashboard.inventory.show', compact('inputData'));
     }
 
     /**
