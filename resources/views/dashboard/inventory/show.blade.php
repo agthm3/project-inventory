@@ -35,7 +35,7 @@
 
                                         <tbody>
                                             <tr>
-                                                <td>Nama</td>
+                                                <td>Foto</td>
                                                 <td><img src="{{ url('storage/' . $inputData->image) }}" height="500px"
                                                         alt=""></td>
                                             </tr>

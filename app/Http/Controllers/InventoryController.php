@@ -11,11 +11,22 @@ class InventoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $allInventory = InputData::all();
+        $query = InputData::query();
+
+        if ($request->filled('search_term')) {
+            $searchTerm = $request->input('search_term');
+            $query->where('name', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('ponumber', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('supplier', 'LIKE', "%{$searchTerm}%");;
+            // Tambahkan kondisi pencarian lainnya jika diperlukan
+        }
+
+        $allInventory = $query->get();
         return view('dashboard.inventory.index', compact('allInventory'));
     }
+
 
     /**
      * Show the form for creating a new resource.

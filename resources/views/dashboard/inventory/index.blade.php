@@ -28,9 +28,14 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Daftar Inventori</h4>
-                            <form action="">
-                                <input id="name" type="text" class="form-control input-default"
-                                    placeholder="Search" />
+                            <form action="{{ route('inventory.index') }}" method="GET">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <input id="name" type="text" class="form-control input-default"
+                                            name="search_term" placeholder="Search" />
+                                    </div>
+                                    <div class="col-4"><button type="submit" class="btn btn-primary">Cari</button></div>
+                                </div>
                             </form>
                         </div>
 
