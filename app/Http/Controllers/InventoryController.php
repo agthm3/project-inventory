@@ -11,21 +11,60 @@ class InventoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    // public function index(Request $request)
+    // {
+    //     $query = InputData::query();
+
+    //     if ($request->filled('search_term')) {
+    //         $searchTerm = $request->input('search_term');
+    //         $query->where('name', 'LIKE', "%{$searchTerm}%")
+    //                 ->orWhere('ponumber', 'LIKE', "%{$searchTerm}%")
+    //                 ->orWhere('supplier', 'LIKE', "%{$searchTerm}%");;
+    //         // Tambahkan kondisi pencarian lainnya jika diperlukan
+    //     }
+
+    //     $allInventory = $query->get();
+    //     return view('dashboard.inventory.index', compact('allInventory'));
+    // }
+
+ public function index(Request $request)
     {
         $query = InputData::query();
 
+        // Logika filter berdasarkan search_term
         if ($request->filled('search_term')) {
             $searchTerm = $request->input('search_term');
             $query->where('name', 'LIKE', "%{$searchTerm}%")
-                    ->orWhere('ponumber', 'LIKE', "%{$searchTerm}%")
-                    ->orWhere('supplier', 'LIKE', "%{$searchTerm}%");;
-            // Tambahkan kondisi pencarian lainnya jika diperlukan
+                  ->orWhere('ponumber', 'LIKE', "%{$searchTerm}%")
+                  ->orWhere('supplier', 'LIKE', "%{$searchTerm}%");
+        }
+
+        // Logika filter berdasarkan PO Number
+        if ($request->filled('filter_ponumber')) {
+            $query->where('ponumber', $request->input('filter_ponumber'));
+        }
+
+        // Logika filter berdasarkan Request Date
+        if ($request->filled('filter_request_date')) {
+            $query->whereDate('verificationdate', $request->input('filter_request_date'));
+        }
+
+        // Logika filter berdasarkan Name
+        if ($request->filled('filter_name')) {
+            $query->where('name', 'LIKE', "%{$request->filter_name}%");
         }
 
         $allInventory = $query->get();
-        return view('dashboard.inventory.index', compact('allInventory'));
+
+        // Mengambil data unik untuk dropdown
+        $uniquePoNumbers = InputData::select('ponumber')->distinct()->pluck('ponumber');
+        $uniqueRequestDates = InputData::select('verificationdate')->distinct()->pluck('verificationdate');
+        $uniqueNames = InputData::select('name')->distinct()->pluck('name');
+
+        return view('dashboard.inventory.index', compact('allInventory', 'uniquePoNumbers', 'uniqueRequestDates', 'uniqueNames'));
     }
+
+
 
 
     /**

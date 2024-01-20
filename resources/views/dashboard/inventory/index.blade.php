@@ -12,16 +12,11 @@
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="javascript:void(0)">Inventori</a>
-                        </li>
-                        <li class="breadcrumb-item active">
-                            <a href="javascript:void(0)">Daftar Inventori</a>
-                        </li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Inventori</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Daftar Inventori</a></li>
                     </ol>
                 </div>
             </div>
-            <!-- row -->
 
             <div class="row">
                 <div class="col-lg-12">
@@ -29,12 +24,61 @@
                         <div class="card-header">
                             <h4 class="card-title">Daftar Inventori</h4>
                             <form action="{{ route('inventory.index') }}" method="GET">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <input id="name" type="text" class="form-control input-default"
-                                            name="search_term" placeholder="Search" />
+                                <!-- Dropdown Filters -->
+                                <div class="row mb-3">
+                                    <!-- Filter PO Number -->
+                                    <div class="col-lg-4">
+                                        <select name="filter_ponumber" class="form-control">
+                                            <option value="">Select PO Number</option>
+                                            @foreach ($uniquePoNumbers as $poNumber)
+                                                <option value="{{ $poNumber }}"
+                                                    {{ request()->filter_ponumber == $poNumber ? 'selected' : '' }}>
+                                                    {{ $poNumber }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <div class="col-4"><button type="submit" class="btn btn-primary">Cari</button></div>
+
+                                    <!-- Filter Request Date -->
+                                    <div class="col-lg-4">
+                                        <select name="filter_request_date" class="form-control">
+                                            <option value="">Select Request Date</option>
+                                            @foreach ($uniqueRequestDates as $date)
+                                                <option value="{{ $date }}"
+                                                    {{ request()->filter_request_date == $date ? 'selected' : '' }}>
+                                                    {{ $date }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <!-- Filter Name -->
+                                    <div class="col-lg-4">
+                                        <select name="filter_name" class="form-control">
+                                            <option value="">Select User</option>
+                                            @foreach ($uniqueNames as $name)
+                                                <option value="{{ $name }}"
+                                                    {{ request()->filter_name == $name ? 'selected' : '' }}>
+                                                    {{ $name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Search Term -->
+                                <div class="row">
+                                    <div class="col-4">
+                                        <input type="text" class="form-control input-default" name="search_term"
+                                            placeholder="Search" value="{{ request()->search_term }}" />
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="{{ route('inventory.index') }}" class="btn btn-secondary">Reset
+                                            Filters</a>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -57,19 +101,17 @@
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->ponumber }}</td>
                                                 <td>{{ $item->verificationdate }}</td>
-                                                <td> <span
-                                                        class="badge 
-                {{ $item->quantity < 50 ? 'badge-danger' : ($item->quantity <= 80 ? 'badge-warning' : 'badge-success') }}">
-                                                        {{ $item->quantity }}
-                                                    </span></td>
                                                 <td>
-                                                    <span>
-                                                        <a href="{{ route('inventory.show', $item) }}" class="mr-4"
-                                                            data-toggle="tooltip" data-placement="top"
-                                                            title="Edit"><button class="btn btn-primary">Detail</button>
-                                                        </a>
-
+                                                    <span
+                                                        class="badge {{ $item->quantity < 50 ? 'badge-danger' : ($item->quantity <= 80 ? 'badge-warning' : 'badge-success') }}">
+                                                        {{ $item->quantity }}
                                                     </span>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('inventory.show', $item) }}" class="btn btn-primary"
+                                                        data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        Detail
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
