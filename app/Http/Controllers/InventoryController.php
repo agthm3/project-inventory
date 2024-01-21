@@ -53,6 +53,27 @@ class InventoryController extends Controller
         if ($request->filled('filter_name')) {
             $query->where('name', 'LIKE', "%{$request->filter_name}%");
         }
+        // Filter Received By
+        if ($request->filled('filter_receivedby')) {
+            $query->where('receivedby', '=', $request->input('filter_receivedby'));
+        }
+
+        // Filter Storage Location
+        if ($request->filled('filter_storagelocation')) {
+            $query->where('storagelocation', '=', $request->input('filter_storagelocation'));
+        }
+        // Filter Storage Location
+        if ($request->filled('uniqueVehiclenumber')) {
+            $query->where('vehiclenumber', '=', $request->input('uniqueVehiclenumber'));
+        }
+        // Filter Supplier
+        if ($request->filled('uniqueSupplier')) {
+            $query->where('supplier', '=', $request->input('uniqueSupplier'));
+        }
+        // Filter Remark
+        if ($request->filled('uniqueRemark')) {
+            $query->where('remark', '=', $request->input('uniqueRemark'));
+        }
 
         $allInventory = $query->get();
 
@@ -60,8 +81,14 @@ class InventoryController extends Controller
         $uniquePoNumbers = InputData::select('ponumber')->distinct()->pluck('ponumber');
         $uniqueRequestDates = InputData::select('verificationdate')->distinct()->pluck('verificationdate');
         $uniqueNames = InputData::select('name')->distinct()->pluck('name');
+        $uniqueReceivedby = InputData::select('receivedby')->distinct()->pluck('receivedby');
+        $uniqueStoragelocation = InputData::select('storagelocation')->distinct()->pluck('storagelocation');
+        $uniqueVehiclenumber = InputData::select('vehiclenumber')->distinct()->pluck('vehiclenumber');
+        $uniqueSupplier = InputData::select('supplier')->distinct()->pluck('supplier');
+        $uniqueRemark = InputData::select('remark')->distinct()->pluck('remark');
 
-        return view('dashboard.inventory.index', compact('allInventory', 'uniquePoNumbers', 'uniqueRequestDates', 'uniqueNames'));
+        return view('dashboard.inventory.index', compact('allInventory', 'uniquePoNumbers', 'uniqueRequestDates', 'uniqueNames', 'uniqueReceivedby', 'uniqueStoragelocation', 'uniqueVehiclenumber' ,'uniqueSupplier',
+    'uniqueRemark'));
     }
 
 

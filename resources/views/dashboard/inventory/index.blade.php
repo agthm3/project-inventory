@@ -27,7 +27,7 @@
                                 <!-- Dropdown Filters -->
                                 <div class="row mb-3">
                                     <!-- Filter PO Number -->
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <select name="filter_ponumber" class="form-control">
                                             <option value="">Select PO Number</option>
                                             @foreach ($uniquePoNumbers as $poNumber)
@@ -40,7 +40,7 @@
                                     </div>
 
                                     <!-- Filter Request Date -->
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <select name="filter_request_date" class="form-control">
                                             <option value="">Select Request Date</option>
                                             @foreach ($uniqueRequestDates as $date)
@@ -53,7 +53,7 @@
                                     </div>
 
                                     <!-- Filter Name -->
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <select name="filter_name" class="form-control">
                                             <option value="">Select User</option>
                                             @foreach ($uniqueNames as $name)
@@ -64,7 +64,69 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <!-- Filter Received By -->
+                                    <div class="col-lg-3">
+                                        <select name="filter_receivedby" class="form-control mt-2">
+                                            <option value="">Select Received By</option>
+                                            @foreach ($uniqueReceivedby as $receivedby)
+                                                <option value="{{ $receivedby }}"
+                                                    {{ request()->filter_receivedby == $receivedby ? 'selected' : '' }}>
+                                                    {{ $receivedby }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <!-- Filter Storage Location -->
+                                    <div class="col-lg-3">
+                                        <select name="filter_storagelocation" class="form-control mt-2">
+                                            <option value="">Select Storage Location</option>
+                                            @foreach ($uniqueStoragelocation as $storagelocation)
+                                                <option value="{{ $storagelocation }}"
+                                                    {{ request()->filter_storagelocation == $storagelocation ? 'selected' : '' }}>
+                                                    {{ $storagelocation }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <!-- Filter Vehicle Number -->
+                                    <div class="col-lg-3">
+                                        <select name="uniqueVehiclenumber" class="form-control mt-2">
+                                            <option value="">Select Vehicle Number</option>
+                                            @foreach ($uniqueVehiclenumber as $vehiclenumber)
+                                                <option value="{{ $vehiclenumber }}"
+                                                    {{ request()->uniqueVehiclenumber == $vehiclenumber ? 'selected' : '' }}>
+                                                    {{ $vehiclenumber }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <!-- Filter Supplier -->
+                                    <div class="col-lg-3">
+                                        <select name="uniqueSupplier" class="form-control mt-2">
+                                            <option value="">Select Supplier</option>
+                                            @foreach ($uniqueSupplier as $supplier)
+                                                <option value="{{ $supplier }}"
+                                                    {{ request()->uniqueSupplier == $supplier ? 'selected' : '' }}>
+                                                    {{ $supplier }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <!-- Filter Remark -->
+                                    <div class="col-lg-3">
+                                        <select name="uniqueRemark" class="form-control mt-2">
+                                            <option value="">Select Remark</option>
+                                            @foreach ($uniqueRemark as $remark)
+                                                <option value="{{ $remark }}"
+                                                    {{ request()->uniqueRemark == $remark ? 'selected' : '' }}>
+                                                    {{ $remark }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
+
 
                                 <!-- Search Term -->
                                 <div class="row">
