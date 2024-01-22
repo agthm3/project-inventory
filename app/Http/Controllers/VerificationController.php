@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InputData;
+use App\Models\RequestMaterial;
 use App\Models\Verification;
 use Illuminate\Http\Request;
 
@@ -12,8 +14,10 @@ class VerificationController extends Controller
      */
     public function index()
     {
-        return view('dashboard.verification.index');
+        $allVerification = RequestMaterial::where('status', 'pending')->get();
+        return view('dashboard.verification.index', compact('allVerification'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,9 +30,21 @@ class VerificationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $verification = RequestMaterial::findOrFail($id); // Ganti dengan model yang benar
+
+        if ($request->hasFile('image')) {
+            // Proses dan simpan file
+            $filename = $request->documentation->store('public/documentation');
+            $verification->image = $filename;
+        }
+
+        // Update status berdasarkan aksi
+        $verification->status = $request->input('action') == 'confirm' ? 'success' : 'failed';
+        $verification->save();
+
+        return redirect()->back()->with('success', 'Action successfully processed.');
     }
 
     /**

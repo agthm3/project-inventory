@@ -41,28 +41,23 @@
                                         <tr>
                                             <th scope="col">Name</th>
                                             <th scope="col">PO Number</th>
-                                            <th scope="col">Verification Date</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col">Request Date</th>
+                                            <th scope="col">User</th>
+                                            <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Air Conditioner</td>
-                                            <td>2308237</td>
-                                            <td>Apr 20,2018</td>
-                                            <td><span class="badge badge-primary">70%</span></td>
-                                            <td>
-                                                <span>
-                                                    <a href="javascript:void()" class="mr-4" data-toggle="tooltip"
-                                                        data-placement="top" title="Edit"><i
-                                                            class="fa fa-pencil color-muted"></i>
-                                                    </a>
-                                                    <a href="javascript:void()" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a>
-                                                </span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($allRequestHistory as $item)
+                                            <tr>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->ponumber }}</td>
+                                                <td>{{ $item->requestdate }}</td>
+                                                <td></td>
+                                                <td>
+                                                    {{ Str::title($item->status) }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

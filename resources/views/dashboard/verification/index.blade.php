@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- @dd($allVerification) --}}
     <div class="content-body">
         <div class="container-fluid">
             <div class="row page-titles mx-0">
@@ -48,28 +49,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Air Conditioner</td>
-                                            <td>2308237</td>
-                                            <td>Apr 20,2018</td>
-                                            <td>
-                                                <span class="badge badge-danger">Pending</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-primary"><input type="file" />Delivery
-                                                    Documentation</span>
-                                            </td>
-                                            <td>
-                                                <span>
-                                                    <a href="javascript:void()" class="mr-4" data-toggle="tooltip"
-                                                        data-placement="top" title="Edit"><i
-                                                            class="fa fa-check color-muted"></i>
-                                                    </a>
-                                                    <a href="javascript:void()" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a>
-                                                </span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($allVerification as $item)
+                                            <tr>
+                                                <form action="{{ route('verification.action', $item->id) }}" method="POST"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->ponumber }}</td>
+                                                    <td>{{ $item->requestdate }}</td>
+                                                    <td><span class="badge badge-danger">{{ $item->status }}</span></td>
+                                                    <td>
+                                                        <input type="file" name="documentation" required />
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" name="action" value="confirm"
+                                                            class="btn btn-success">Konfirmasi</button>
+                                                        <button type="submit" name="action" value="reject"
+                                                            class="btn btn-danger">Tolak</button>
+                                                    </td>
+                                                </form>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

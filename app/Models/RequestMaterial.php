@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class RequestMaterial extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'requestdate',
+        'requestor',
+        'department',
+        'ponumber',
+        'notes',
+        'from_note',
+        'to_note',
+        'vehiclenumber'
+    ];
 }

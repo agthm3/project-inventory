@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('request_materials', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('requestdate');
+            $table->string('requestor');
+            $table->string('department');
+            $table->string('ponumber');
+            $table->longText('notes');
+            $table->string('from_note');
+            $table->string('to_note');
+            $table->string('vehiclenumber');
+            $table->enum('status', ['pending', 'failed','success'])->default('pending');
             $table->timestamps();
         });
     }

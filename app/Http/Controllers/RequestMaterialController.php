@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InputData;
 use App\Models\RequestMaterial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class RequestMaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.requestmaterial.index');
+        $inputDataNames = InputData::select('name')->distinct()->get();
+
+
+        return view('dashboard.requestmaterial.index', compact('inputDataNames'));
     }
 
     /**
@@ -28,7 +33,34 @@ class RequestMaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            // dd($request);
+        $request->validate([
+            'name'=>'required|max:255',
+            'requestdate' =>'date|required',
+            'requestor'=> 'required',
+            'department' => 'required|max:255',
+            'ponumber' => 'required',
+            'notes'=> 'required',
+            'from_note'=> 'required',
+            'to_note'=> 'required',
+            'vehiclenumber'=> 'required',
+            'quantity' => 'required'
+        ]);
+       
+
+        RequestMaterial::create([
+            'name' => $request->name,
+            'requestdate'=> $request->requestdate, 
+            'requestor' => $request->requestor,
+            'department' => $request->department,
+            'ponumber' => $request->ponumber,
+            'notes'=>$request->notes,
+            'from_note'=>$request->from_note,
+            'to_note'=>$request->to_note,
+            'quantity' => $request->quantity,
+            'vehiclenumber'=> $request->vehiclenumber      
+        ]);
+        return Redirect::back();
     }
 
     /**
@@ -61,5 +93,13 @@ class RequestMaterialController extends Controller
     public function destroy(RequestMaterial $requestMaterial)
     {
         //
+    }
+
+
+    public function search(Request $request){
+        $searchTerm = $request->input('search_name');
+        $names = InputData::where('name', 'LIKE', "%{$searchTerm}%")->get();
+
+        return view('dashboard.requestMaterial.index', compact('names'));
     }
 }

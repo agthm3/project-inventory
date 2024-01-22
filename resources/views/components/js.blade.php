@@ -25,3 +25,5 @@
    <script src="{{ asset('vendor/jquery.counterup/jquery.counterup.min.js') }}"></script>
 
    <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
+
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

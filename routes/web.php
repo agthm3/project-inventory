@@ -30,9 +30,13 @@ Route::patch('/inventory/edit/{inputData}', [InputDataController::class, 'update
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 Route::get('/inventory/{inputData}', [InventoryController::class, 'show'])->name('inventory.show');
 
+Route::get('/name/search', [RequestMaterialController::class, 'search'])->name('namerequest.search');
 
 Route::get('/request-material', [RequestMaterialController::class, 'index'])->name('requestmaterial.index');
+Route::post('/reques-material', [RequestMaterialController::class, 'store'])->name('requestmaterial.store');
+// verification
 Route::get('/verification', [VerificationController::class, 'index'])->name('verification.index');
+Route::post('/verification/action/{id}', [VerificationController::class, 'store'])->name('verification.action');
 Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
 Route::get('/dashboard', function () {
     return view('dashboard');

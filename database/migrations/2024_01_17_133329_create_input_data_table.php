@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('verificationdate');
             $table->string('ponumber');
-            $table->string('deskripsi');
+            $table->longText('deskripsi');
             $table->string('quantity');
             $table->string('receivedby');
             $table->string('user');

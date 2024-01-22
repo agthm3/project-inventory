@@ -30,31 +30,64 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form>
-                                    <label for="name" class="mt-2">Name</label>
-                                    <input id="name" type="text" class="form-control input-default"
-                                        name="name" />
-                                    <label for="request-date" class="mt-2">Request Date</label>
-                                    <input id="request-date" type="date" name="request-date"
-                                        class="form-control input-default" />
 
-                                    <label for="requestor" class="mt-2">Requestor</label>
-                                    <input id="requestor" type="text" class="form-control input-default" />
-                                    <label for="department" class="mt-2">Department</label>
-                                    <input id="department" type="text" class="form-control input-default" />
-                                    <label for="po-number" class="mt-2">PO Number</label>
-                                    <input id="po-number" type="number" name="po-number"
+                                <form action="{{ route('requestmaterial.store') }}" method="post">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    @csrf
+                                    {{-- name --}}
+                                    <div class="form-group">
+                                        <label for="inputDataName" class="mt-2">Name</label>
+                                        <select id="inputDataName" class="form-control" name="name">
+                                            <option value="">Select Material</option>
+                                            {{-- asumsikan $inputDataNames berisi data dari InputData --}}
+                                            @foreach ($inputDataNames as $inputDataName)
+                                                <option value="{{ $inputDataName->name }}">{{ $inputDataName->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    {{-- request data --}}
+                                    <label for="request-date" class="mt-2">Request Date</label>
+                                    <input id="request-date" name="requestdate" type="date"
                                         class="form-control input-default" />
+                                    {{-- request quantity --}}
+                                    <label for="quantity" class="mt-2">Quantity</label>
+                                    <input id="quantity" name="quantity" type="number"
+                                        class="form-control input-default" />
+                                    {{-- requestor --}}
+                                    <label for="requestor" class="mt-2">Requestor</label>
+                                    <input id="requestor" type="text" name="requestor"
+                                        class="form-control input-default" />
+                                    {{-- department --}}
+                                    <label for="department" class="mt-2">Department</label>
+                                    <input id="department" type="text" name="department"
+                                        class="form-control input-default" />
+                                    {{-- ponumber --}}
+                                    <label for="po-number" class="mt-2">PO Number</label>
+                                    <input id="po-number" type="number" name="ponumber"
+                                        class="form-control input-default" />
+                                    {{-- notes --}}
                                     <label for="" class="mt-2">Notes</label>
                                     <textarea class="form-control" rows="4" id="comment" name="notes"></textarea>
+                                    {{-- from --}}
                                     <label for="from" class="mt-2">From</label>
-                                    <input id="from" type="text" name="from-name"
+                                    <input id="from" type="text" name="from_note"
                                         class="form-control input-default" />
+                                    {{-- to --}}
                                     <label for="to" class="mt-2">To</label>
-                                    <input id="to" name="to-name" type="text"
+                                    <input id="to" name="to_note" type="text"
                                         class="form-control input-default" />
+                                    {{-- vehicle number --}}
                                     <label for="vehicle-number" class="mt-2">Vehicle Number</label>
-                                    <input id="vehicle-number" name="vehicle-number" type="text"
+                                    <input id="vehicle-number" name="vehiclenumber" type="text"
                                         class="form-control input-default" />
 
                                     <button type="submit" class="btn btn-primary mt-2 col-xl-12 col-xxl-12">
