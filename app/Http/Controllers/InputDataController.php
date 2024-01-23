@@ -14,7 +14,7 @@ class InputDataController extends Controller
      */
     public function index()
     {
-        return view('dashboard.inputdata.index');
+        return view('dashboard.inputData.index');
     }
 
     /**

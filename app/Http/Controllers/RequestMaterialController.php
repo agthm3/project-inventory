@@ -17,7 +17,7 @@ class RequestMaterialController extends Controller
         $inputDataNames = InputData::select('name')->distinct()->get();
 
 
-        return view('dashboard.requestmaterial.index', compact('inputDataNames'));
+        return view('dashboard.requestMaterial.index', compact('inputDataNames'));
     }
 
     /**
