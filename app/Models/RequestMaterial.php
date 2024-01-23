@@ -18,6 +18,7 @@ class RequestMaterial extends Model
         'notes',
         'from_note',
         'to_note',
-        'vehiclenumber'
+        'vehiclenumber',
+        'status'
     ];
 }

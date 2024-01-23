@@ -78,23 +78,27 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li><a href="./index.html">Dashboard</a></li>
-                    <li class="nav-label first">Inventori Management</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">Stock</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{ route('inputdata.index') }}">Input Data</a></li>
-                            <li><a href="{{ route('inventory.index') }}">Inventori</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                    @if (Auth::user()->role == 'admin')
+                        <li class="nav-label first">Inventori Management</li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                    class="icon icon-single-04"></i><span class="nav-text">Stock</span></a>
+                            <ul aria-expanded="false">
+                                <li><a href="{{ route('inputdata.index') }}">Input Data</a></li>
+                                <li><a href="{{ route('inventory.index') }}">Inventori</a></li>
+                            </ul>
+                        </li>
+                    @endif
                     <li class="nav-label first">Request Management</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-single-04"></i><span class="nav-text">Request</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('requestmaterial.index') }}">Request Material</a></li>
-                            <li><a href="{{ route('verification.index') }}">Verification</a></li>
+                            @if (Auth::user()->role == 'admin')
+                                <li><a href="{{ route('verification.index') }}">Verification</a></li>
+                            @endif
                             <li><a href="{{ route('history.index') }}">History</a></li>
                         </ul>
                     </li>

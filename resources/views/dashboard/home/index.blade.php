@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- @dd($completeRequest) --}}
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
@@ -10,7 +11,7 @@
                         <div class="stat-widget-two card-body">
                             <div class="stat-content">
                                 <div class="stat-text">Complete Request</div>
-                                <div class="stat-digit">8500</div>
+                                <div class="stat-digit">{{ $completeRequest }}</div>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success w-85" role="progressbar" aria-valuenow="85"
@@ -24,7 +25,7 @@
                         <div class="stat-widget-two card-body">
                             <div class="stat-content">
                                 <div class="stat-text">Pending Request</div>
-                                <div class="stat-digit">500</div>
+                                <div class="stat-digit">{{ $pendingRequest }}</div>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50"
@@ -38,7 +39,7 @@
                         <div class="stat-widget-two card-body">
                             <div class="stat-content">
                                 <div class="stat-text">Failed Request</div>
-                                <div class="stat-digit"><i class="fa fa-usd"></i>650</div>
+                                <div class="stat-digit"><i class="fa fa-usd"></i>{{ $failedRequest }}</div>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65"

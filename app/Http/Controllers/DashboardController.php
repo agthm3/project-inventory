@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\rc;
+use App\Models\RequestMaterial;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,7 +13,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.home.index');
+        $completeRequest = RequestMaterial::where('status', 'success')->count();
+        $pendingRequest = RequestMaterial::where('status', 'pending')->count();
+        $failedRequest = RequestMaterial::where('status', 'failed')->count();
+        return view('dashboard.home.index', compact('completeRequest','pendingRequest','failedRequest'));
     }
 
     /**
