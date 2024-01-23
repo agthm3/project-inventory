@@ -16,7 +16,8 @@ class DashboardController extends Controller
         $completeRequest = RequestMaterial::where('status', 'success')->count();
         $pendingRequest = RequestMaterial::where('status', 'pending')->count();
         $failedRequest = RequestMaterial::where('status', 'failed')->count();
-        return view('dashboard.home.index', compact('completeRequest','pendingRequest','failedRequest'));
+        $allRequestLog = RequestMaterial::all();
+        return view('dashboard.home.index', compact('completeRequest','pendingRequest','failedRequest', 'allRequestLog'));
     }
 
     /**

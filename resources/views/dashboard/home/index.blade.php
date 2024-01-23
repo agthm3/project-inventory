@@ -39,7 +39,7 @@
                         <div class="stat-widget-two card-body">
                             <div class="stat-content">
                                 <div class="stat-text">Failed Request</div>
-                                <div class="stat-digit"><i class="fa fa-usd"></i>{{ $failedRequest }}</div>
+                                <div class="stat-digit">{{ $failedRequest }}</div>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65"
@@ -65,23 +65,25 @@
                                         <tr>
                                             <th scope="col">Name</th>
                                             <th scope="col">PO Number</th>
-                                            <th scope="col">Verification Date</th>
+                                            <th scope="col">Request Date</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <span>Semen Tiga Roda</span>
-                                            </td>
-                                            <td>Lew Shawon</td>
-                                            <td><span>Asus-565</span></td>
-                                            <td><span>456 pcs</span></td>
-                                            <td>
-                                                <span class="badge badge-warning">Pending</span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($allRequestLog as $item)
+                                            <tr>
+                                                <td>
+                                                    <span>{{ $item->name }}</span>
+                                                </td>
+                                                <td>{{ $item->ponumber }}</td>
+                                                <td><span>{{ $item->requestdate }}</span></td>
+                                                <td><span>{{ $item->quantity }}</span></td>
+                                                <td>
+                                                    <span class="badge badge-warning">{{ $item->status }}</span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

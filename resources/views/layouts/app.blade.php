@@ -63,7 +63,27 @@
                                 </div>
                             </div>
                         </div>
+                        <ul class="navbar-nav header-right">
+                            <li class="nav-item dropdown header-profile">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    <i class="fa fa-user"></i>
+                                    <span>{{ Auth::user()->name }}</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    {{-- <a href="./app-profile.html" class="dropdown-item">
+                                        <i class="fa fa-user"></i>
+                                        <span class="ml-2">Profile </span>
+                                    </a> --}}
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <i class="icon-key"></i>
+                                        <button class="btn btn-primary form-control" type="submit">Logout</button>
+                                    </form>
 
+
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
             </div>
