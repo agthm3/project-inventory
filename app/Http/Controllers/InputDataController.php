@@ -43,7 +43,7 @@ class InputDataController extends Controller
         'vehiclenumber' => 'required|max:255',
         'supplier'=> 'required|max:255',
         'remark' => 'required|max:255',
-        'image' => 'required',
+        'image' => 'required|image',
     ]);
        $file = $request->file('image');
         $path = time() . '_' . $request->name . '.' . $file->getClientOriginalExtension();

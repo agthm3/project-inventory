@@ -60,7 +60,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table mb-0">
+                                <table class="table mb-0 text-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">Name</th>

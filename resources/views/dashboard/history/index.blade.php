@@ -6,17 +6,17 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>Hi, welcome back!</h4>
-                        <p class="mb-0">Your business dashboard template</p>
+                        <h4>Hi, welcome back {{ Auth::user()->name }}!</h4>
+                        <p class="mb-0">Your business management inventory</p>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="javascript:void(0)">Inventori</a>
+                            <a href="javascript:void(0)">Request</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="javascript:void(0)">Request History</a>
+                            <a href="javascript:void(0)">History</a>
                         </li>
                     </ol>
                 </div>
@@ -36,7 +36,7 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered verticle-middle table-responsive-sm">
+                                <table class="table table-bordered verticle-middle table-responsive-sm text-primary">
                                     <thead>
                                         <tr>
                                             <th scope="col">Name</th>

@@ -6,8 +6,8 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>Hi, welcome back!</h4>
-                        <span class="ml-1">Element</span>
+                        <h4>Hi, welcome back {{ Auth::user()->name }}!</h4>
+                        <p class="mb-0">Your business management inventory</p>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <div class="basic-form">
 
-                                <form action="{{ route('requestmaterial.store') }}" method="post">
+                                <form action="{{ route('requestmaterial.store') }}" method="post" class="text-primary">
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
