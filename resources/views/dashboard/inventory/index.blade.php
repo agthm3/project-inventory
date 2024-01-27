@@ -97,7 +97,7 @@
                                     <div class="col-lg-3 mt-2">
                                         <input class="form-control" list="suppliersList" name="uniqueSupplier"
                                             placeholder="Search Supplier" value="{{ request()->uniqueSupplier }}">
-                                        <datalist id="suppliersList">
+                                        <datalist id="supplie rsList">
                                             @foreach ($uniqueSupplier as $supplier)
                                                 <option value="{{ $supplier }}"></option>
                                             @endforeach

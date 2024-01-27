@@ -78,7 +78,7 @@ class InventoryController extends Controller
         $allInventory = $query->get();
 
         // Mengambil data unik untuk dropdown
-        $uniquePoNumbers = InputData::select('ponumber')->distinct()->pluck('ponumber');
+        $uniquePoNumbers = InputData::select('ponumber')->distinct()->pluck('ponumber')->sort();
         $uniqueRequestDates = InputData::select('verificationdate')->distinct()->pluck('verificationdate');
         $uniqueNames = InputData::select('name')->distinct()->pluck('name');
         $uniqueReceivedby = InputData::select('receivedby')->distinct()->pluck('receivedby');
