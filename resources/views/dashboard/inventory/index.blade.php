@@ -24,109 +24,97 @@
                         <div class="card-header">
                             <h4 class="card-title">Daftar Inventori</h4>
                             <form action="{{ route('inventory.index') }}" method="GET">
-                                <!-- Dropdown Filters -->
                                 <div class="row mb-3">
                                     <!-- Filter PO Number -->
                                     <div class="col-lg-3">
-                                        <select name="filter_ponumber" class="form-control">
-                                            <option value="">Select PO Number</option>
+                                        <input class="form-control" list="poNumbersList" name="filter_ponumber"
+                                            placeholder="Search PO Number" value="{{ request()->filter_ponumber }}">
+                                        <datalist id="poNumbersList">
                                             @foreach ($uniquePoNumbers as $poNumber)
-                                                <option value="{{ $poNumber }}"
-                                                    {{ request()->filter_ponumber == $poNumber ? 'selected' : '' }}>
-                                                    {{ $poNumber }}
-                                                </option>
+                                                <option value="{{ $poNumber }}"></option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
                                     </div>
 
                                     <!-- Filter Request Date -->
                                     <div class="col-lg-3">
-                                        <select name="filter_request_date" class="form-control">
-                                            <option value="">Select Request Date</option>
+                                        <input class="form-control" list="requestDatesList" name="filter_request_date"
+                                            placeholder="Search Request Date" value="{{ request()->filter_request_date }}">
+                                        <datalist id="requestDatesList">
                                             @foreach ($uniqueRequestDates as $date)
-                                                <option value="{{ $date }}"
-                                                    {{ request()->filter_request_date == $date ? 'selected' : '' }}>
-                                                    {{ $date }}
-                                                </option>
+                                                <option value="{{ $date }}"></option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
                                     </div>
 
                                     <!-- Filter Name -->
-                                    <div class="col-lg-3">
-                                        <select name="filter_name" class="form-control">
-                                            <option value="">Select User</option>
+                                    <div class="col-lg-3 mt-2">
+                                        <input class="form-control" list="namesList" name="filter_name"
+                                            placeholder="Search User" value="{{ request()->filter_name }}">
+                                        <datalist id="namesList">
                                             @foreach ($uniqueNames as $name)
-                                                <option value="{{ $name }}"
-                                                    {{ request()->filter_name == $name ? 'selected' : '' }}>
-                                                    {{ $name }}
-                                                </option>
+                                                <option value="{{ $name }}"></option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
                                     </div>
+
                                     <!-- Filter Received By -->
                                     <div class="col-lg-3">
-                                        <select name="filter_receivedby" class="form-control mt-2">
-                                            <option value="">Select Received By</option>
+                                        <input class="form-control" list="receivedByList" name="filter_receivedby"
+                                            placeholder="Search Received By" value="{{ request()->filter_receivedby }}">
+                                        <datalist id="receivedByList">
                                             @foreach ($uniqueReceivedby as $receivedby)
-                                                <option value="{{ $receivedby }}"
-                                                    {{ request()->filter_receivedby == $receivedby ? 'selected' : '' }}>
-                                                    {{ $receivedby }}
-                                                </option>
+                                                <option value="{{ $receivedby }}"></option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
                                     </div>
 
                                     <!-- Filter Storage Location -->
                                     <div class="col-lg-3">
-                                        <select name="filter_storagelocation" class="form-control mt-2">
-                                            <option value="">Select Storage Location</option>
+                                        <input class="form-control" list="storageLocationsList"
+                                            name="filter_storagelocation" placeholder="Search Storage Location"
+                                            value="{{ request()->filter_storagelocation }}">
+                                        <datalist id="storageLocationsList">
                                             @foreach ($uniqueStoragelocation as $storagelocation)
-                                                <option value="{{ $storagelocation }}"
-                                                    {{ request()->filter_storagelocation == $storagelocation ? 'selected' : '' }}>
-                                                    {{ $storagelocation }}
-                                                </option>
+                                                <option value="{{ $storagelocation }}"></option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
                                     </div>
+
                                     <!-- Filter Vehicle Number -->
                                     <div class="col-lg-3">
-                                        <select name="uniqueVehiclenumber" class="form-control mt-2">
-                                            <option value="">Select Vehicle Number</option>
+                                        <input class="form-control" list="vehicleNumbersList" name="uniqueVehiclenumber"
+                                            placeholder="Search Vehicle Number"
+                                            value="{{ request()->uniqueVehiclenumber }}">
+                                        <datalist id="vehicleNumbersList">
                                             @foreach ($uniqueVehiclenumber as $vehiclenumber)
-                                                <option value="{{ $vehiclenumber }}"
-                                                    {{ request()->uniqueVehiclenumber == $vehiclenumber ? 'selected' : '' }}>
-                                                    {{ $vehiclenumber }}
-                                                </option>
+                                                <option value="{{ $vehiclenumber }}"></option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
                                     </div>
+
                                     <!-- Filter Supplier -->
-                                    <div class="col-lg-3">
-                                        <select name="uniqueSupplier" class="form-control mt-2">
-                                            <option value="">Select Supplier</option>
+                                    <div class="col-lg-3 mt-2">
+                                        <input class="form-control" list="suppliersList" name="uniqueSupplier"
+                                            placeholder="Search Supplier" value="{{ request()->uniqueSupplier }}">
+                                        <datalist id="suppliersList">
                                             @foreach ($uniqueSupplier as $supplier)
-                                                <option value="{{ $supplier }}"
-                                                    {{ request()->uniqueSupplier == $supplier ? 'selected' : '' }}>
-                                                    {{ $supplier }}
-                                                </option>
+                                                <option value="{{ $supplier }}"></option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
                                     </div>
+
                                     <!-- Filter Remark -->
                                     <div class="col-lg-3">
-                                        <select name="uniqueRemark" class="form-control mt-2">
-                                            <option value="">Select Remark</option>
+                                        <input class="form-control" list="remarksList" name="uniqueRemark"
+                                            placeholder="Search Remark" value="{{ request()->uniqueRemark }}">
+                                        <datalist id="remarksList">
                                             @foreach ($uniqueRemark as $remark)
-                                                <option value="{{ $remark }}"
-                                                    {{ request()->uniqueRemark == $remark ? 'selected' : '' }}>
-                                                    {{ $remark }}
-                                                </option>
+                                                <option value="{{ $remark }}"></option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
                                     </div>
                                 </div>
-
 
                                 <!-- Search Term -->
                                 <div class="row">
@@ -170,8 +158,9 @@
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('inventory.show', $item) }}" class="btn btn-primary"
-                                                        data-toggle="tooltip" data-placement="top" title="Edit">
+                                                    <a href="{{ route('inventory.show', $item) }}"
+                                                        class="btn btn-primary" data-toggle="tooltip"
+                                                        data-placement="top" title="Edit">
                                                         Detail
                                                     </a>
                                                 </td>
