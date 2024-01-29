@@ -22,5 +22,13 @@ class InputData extends Model
        'remark',
     'image'
     ];
+
+// Di dalam model InputData
+
+public function requestMaterial()
+{
+    return $this->hasOne(RequestMaterial::class, 'input_data_id');
+}
+
    
 }

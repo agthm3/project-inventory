@@ -19,6 +19,21 @@ class RequestMaterialController extends Controller
 
         return view('dashboard.requestMaterial.index', compact('inputDataNames'));
     }
+    // Di dalam RequestMaterialController
+
+public function getDetailsByName($name)
+{
+    $data = InputData::where('name', $name)->first(['ponumber', 'quantity']);
+    return response()->json($data);
+}
+
+public function getDetailsByPONumber($ponumber)
+{
+    $data = InputData::where('ponumber', $ponumber)->first(['name', 'quantity']);
+    return response()->json($data);
+}
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,8 +59,11 @@ class RequestMaterialController extends Controller
             'from_note'=> 'required',
             'to_note'=> 'required',
             'vehiclenumber'=> 'required',
-            'quantity' => 'required'
+            'quantity' => 'required',
+            'image'=> 'nullable'
         ]);
+
+        
        
 
         RequestMaterial::create([
@@ -58,7 +76,8 @@ class RequestMaterialController extends Controller
             'from_note'=>$request->from_note,
             'to_note'=>$request->to_note,
             'quantity' => $request->quantity,
-            'vehiclenumber'=> $request->vehiclenumber      
+            'vehiclenumber'=> $request->vehiclenumber,
+            'image' => null
         ]);
         return Redirect::back();
     }
@@ -96,10 +115,10 @@ class RequestMaterialController extends Controller
     }
 
 
-    public function search(Request $request){
-        $searchTerm = $request->input('search_name');
-        $names = InputData::where('name', 'LIKE', "%{$searchTerm}%")->get();
+    // public function search(Request $request){
+    //     $searchTerm = $request->input('search_name');
+    //     $names = InputData::where('name', 'LIKE', "%{$searchTerm}%")->get();
 
-        return view('dashboard.requestMaterial.index', compact('names'));
-    }
+    //     return view('dashboard.requestMaterial.index', compact('names'));
+    // }
 }

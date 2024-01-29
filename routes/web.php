@@ -40,6 +40,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/request-material', [RequestMaterialController::class, 'index'])->name('requestmaterial.index');
     Route::post('/request-material', [RequestMaterialController::class, 'store'])->name('requestmaterial.store');
 
+    Route::get('/getDetailsByName/{name}', [RequestMaterialController::class, 'getDetailsByName']);
+    Route::get('/getDetailsByPONumber/{ponumber}', [RequestMaterialController::class, 'getDetailsByPONumber']);
+
+    Route::get('/history-detail/{requestmaterial}', [HistoryController::class, 'show'])->name('history.show');
+
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
 });
 

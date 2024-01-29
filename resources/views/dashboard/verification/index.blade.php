@@ -42,6 +42,8 @@
                                         <tr>
                                             <th scope="col">Name</th>
                                             <th scope="col">PO Number</th>
+                                            <th scope="col">Inventory Quantity</th>
+                                            <th scope="col">Requested Quantity</th>
                                             <th scope="col">Verification Date</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Documentation</th>
@@ -53,13 +55,25 @@
                                             <tr>
                                                 <form action="{{ route('verification.action', $item->id) }}" method="POST"
                                                     enctype="multipart/form-data">
+                                                    @if ($errors->any())
+                                                        <div class="alert alert-danger">
+                                                            <ul>
+                                                                @foreach ($errors->all() as $error)
+                                                                    <li>{{ $error }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
+
                                                     @csrf
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->ponumber }}</td>
+                                                    <td>{{ $item->inputData->quantity }}</td>
+                                                    <td>{{ $item->quantity }}</td>
                                                     <td>{{ $item->requestdate }}</td>
                                                     <td><span class="badge badge-danger">{{ $item->status }}</span></td>
                                                     <td>
-                                                        <input type="file" name="documentation" required />
+                                                        <input type="file" name="image" required />
                                                     </td>
                                                     <td>
                                                         <button type="submit" name="action" value="confirm"

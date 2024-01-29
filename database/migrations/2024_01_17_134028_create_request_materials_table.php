@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('request_materials', function (Blueprint $table) {
             $table->id();
+$table->unsignedBigInteger('input_data_id')->nullable(); // Tambahkan baris ini
+        $table->foreign('input_data_id')->references('id')->on('input_data'); // Tambahkan baris ini
             $table->string('name');
             $table->string('requestdate');
             $table->string('requestor');
@@ -21,7 +23,10 @@ return new class extends Migration
             $table->longText('notes');
             $table->string('from_note');
             $table->string('to_note');
-            $table->string('vehiclenumber');
+            $table->string('quantity');
+   // Dalam migration file
+            $table->string('image')->nullable()->default(null);
+            $table->string('vehiclenumber')->default(null);
             $table->enum('status', ['pending', 'failed','success'])->default('pending');
             $table->timestamps();
         });

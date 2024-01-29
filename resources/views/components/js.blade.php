@@ -33,3 +33,17 @@
    <!-- Di dalam <head> tag di file layout -->
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+
+
+
+
+
+   <script src="{{ asset('vendor/jquery-steps/build/jquery.steps.min.js') }}"></script>
+   <script src="{{ asset('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+   <!-- Form validate init -->
+   <script src="{{ asset('js/plugins-init/jquery.validate-init.js') }}"></script>
+
+
+
+   <!-- Form step init -->
+   <script src="{{ asset('js/plugins-init/jquery-steps-init.js') }}"></script>

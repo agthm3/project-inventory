@@ -9,4 +9,9 @@
     <link rel="stylesheet" href="{{ asset('vendor/owl-carousel/css/owl.theme.default.min.css') }}" />
     <link href="{{ asset('vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('vendor/jquery-steps/css/jquery.steps.css') }}" rel="stylesheet">
+    {{-- Include jQuery --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 </head>

@@ -12,7 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('histories', function (Blueprint $table) {
-            $table->id();
+              $table->id();
+            $table->unsignedBigInteger('input_data_id')->nullable(); // Tambahkan baris ini
+            $table->foreign('input_data_id')->references('id')->on('input_data'); // Tambahkan baris ini
+            $table->string('name');
+            $table->string('requestdate');
+            $table->string('requestor');
+            $table->string('department');
+            $table->string('ponumber');
+            $table->longText('notes');
+            $table->string('from_note');
+            $table->string('to_note');
+            $table->string('quantity');
+            // Dalam migration file
+            $table->string('image')->nullable()->default('path/to/default/image.jpg');
+            $table->string('vehiclenumber')->default(null);
+            $table->enum('status', ['pending', 'failed','success'])->default('pending');
             $table->timestamps();
         });
     }

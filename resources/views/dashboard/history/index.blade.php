@@ -43,6 +43,7 @@
                                             <th scope="col">PO Number</th>
                                             <th scope="col">Request Date</th>
                                             <th scope="col">User</th>
+                                            <th scope="col">Detail</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
@@ -52,7 +53,11 @@
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->ponumber }}</td>
                                                 <td>{{ $item->requestdate }}</td>
-                                                <td></td>
+                                                <td>{{ $item->user }}</td>
+                                                <td> <a href="{{ route('history.show', $item) }}" class="btn btn-primary"
+                                                        data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        Detail
+                                                    </a></td>
                                                 <td>
                                                     {{ Str::title($item->status) }}
                                                 </td>

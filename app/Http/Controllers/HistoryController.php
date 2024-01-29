@@ -13,7 +13,7 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $allRequestHistory = RequestMaterial::where('status','success')->orWhere('status','failed')->get();
+        $allRequestHistory = RequestMaterial::where('status','success')->orWhere('status','failed')->orWhere('status','pending')->get();
         return view('dashboard.history.index', compact('allRequestHistory'));
     }
 
@@ -36,9 +36,9 @@ class HistoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(History $history)
+    public function show(RequestMaterial $requestmaterial)
     {
-        //
+       return view('dashboard.history.show', compact('requestmaterial'));
     }
 
     /**

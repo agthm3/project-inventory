@@ -45,23 +45,30 @@
                                     {{-- name --}}
                                     <div class="form-group">
                                         <label for="inputDataName" class="mt-2">Name</label>
+
                                         <select id="inputDataName" class="form-control" name="name">
                                             <option value="">Select Material</option>
-                                            {{-- asumsikan $inputDataNames berisi data dari InputData --}}
                                             @foreach ($inputDataNames as $inputDataName)
                                                 <option value="{{ $inputDataName->name }}">{{ $inputDataName->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
+                                    {{-- ponumber --}}
+                                    <label for="po-number" class="mt-2">PO Number</label>
+                                    <input id="po-number" type="number" name="ponumber"
+                                        class="form-control input-default" />
+                                    {{-- request quantity --}}
+                                    <label for="quantity" class="mt-2">Quantity</label>
+                                    <p>Jumlah yang tampil adalah stok yang dimiliki, harap jangan melakukan request lebih
+                                        dari stok.</p>
+                                    <input id="quantity" name="quantity" type="number"
+                                        class="form-control input-default" />
                                     {{-- request data --}}
                                     <label for="request-date" class="mt-2">Request Date</label>
                                     <input id="request-date" name="requestdate" type="date"
                                         class="form-control input-default" />
-                                    {{-- request quantity --}}
-                                    <label for="quantity" class="mt-2">Quantity</label>
-                                    <input id="quantity" name="quantity" type="number"
-                                        class="form-control input-default" />
+
                                     {{-- requestor --}}
                                     <label for="requestor" class="mt-2">Requestor</label>
                                     <input id="requestor" type="text" name="requestor"
@@ -69,10 +76,6 @@
                                     {{-- department --}}
                                     <label for="department" class="mt-2">Department</label>
                                     <input id="department" type="text" name="department"
-                                        class="form-control input-default" />
-                                    {{-- ponumber --}}
-                                    <label for="po-number" class="mt-2">PO Number</label>
-                                    <input id="po-number" type="number" name="ponumber"
                                         class="form-control input-default" />
                                     {{-- notes --}}
                                     <label for="" class="mt-2">Notes</label>
@@ -101,4 +104,40 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#inputDataName').on('change', function() {
+                var name = $(this).val();
+                if (name) {
+                    $.ajax({
+                        url: '/getDetailsByName/' + name,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('#po-number').val(data.ponumber);
+                            $('#quantity').val(data.quantity);
+                        }
+                    });
+                }
+            });
+
+            $('#po-number').on('change', function() {
+                var poNumber = $(this).val();
+                if (poNumber) {
+                    $.ajax({
+                        url: '/getDetailsByPONumber/' + poNumber,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('#inputDataName').val(data.name).trigger('change');
+                            $('#quantity').val(data.quantity);
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+
 @endsection

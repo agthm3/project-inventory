@@ -19,6 +19,16 @@ class RequestMaterial extends Model
         'from_note',
         'to_note',
         'vehiclenumber',
-        'status'
+        'status',
+        'quantity',
     ];
+
+// Di dalam model RequestMaterial
+
+public function inputData()
+{
+    return $this->hasOne(InputData::class, 'ponumber', 'ponumber');
+}
+
+
 }
