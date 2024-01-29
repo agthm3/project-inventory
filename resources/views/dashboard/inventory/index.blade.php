@@ -35,7 +35,6 @@
                                             @endforeach
                                         </datalist>
                                     </div>
-
                                     <!-- Filter Request Date -->
                                     <div class="col-lg-3">
                                         <input class="form-control" list="requestDatesList" name="filter_request_date"
@@ -46,7 +45,6 @@
                                             @endforeach
                                         </datalist>
                                     </div>
-
                                     <!-- Filter Name -->
                                     <div class="col-lg-3 mt-2">
                                         <input class="form-control" list="namesList" name="filter_name"
@@ -57,7 +55,6 @@
                                             @endforeach
                                         </datalist>
                                     </div>
-
                                     <!-- Filter Received By -->
                                     <div class="col-lg-3">
                                         <input class="form-control" list="receivedByList" name="filter_receivedby"
@@ -68,7 +65,6 @@
                                             @endforeach
                                         </datalist>
                                     </div>
-
                                     <!-- Filter Storage Location -->
                                     <div class="col-lg-3">
                                         <input class="form-control" list="storageLocationsList"
@@ -80,7 +76,6 @@
                                             @endforeach
                                         </datalist>
                                     </div>
-
                                     <!-- Filter Vehicle Number -->
                                     <div class="col-lg-3">
                                         <input class="form-control" list="vehicleNumbersList" name="uniqueVehiclenumber"
@@ -92,18 +87,16 @@
                                             @endforeach
                                         </datalist>
                                     </div>
-
                                     <!-- Filter Supplier -->
                                     <div class="col-lg-3 mt-2">
                                         <input class="form-control" list="suppliersList" name="uniqueSupplier"
                                             placeholder="Search Supplier" value="{{ request()->uniqueSupplier }}">
-                                        <datalist id="supplie rsList">
+                                        <datalist id="suppliersList">
                                             @foreach ($uniqueSupplier as $supplier)
                                                 <option value="{{ $supplier }}"></option>
                                             @endforeach
                                         </datalist>
                                     </div>
-
                                     <!-- Filter Remark -->
                                     <div class="col-lg-3">
                                         <input class="form-control" list="remarksList" name="uniqueRemark"
@@ -115,7 +108,6 @@
                                         </datalist>
                                     </div>
                                 </div>
-
                                 <!-- Search Term -->
                                 <div class="row">
                                     <div class="col-4">
@@ -135,7 +127,15 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered verticle-middle table-responsive-sm text-primary">
+                                <!-- Tombol "Print Tabel" -->
+                                <div class="row">
+                                    <div class="col-lg-12 mb-2 ">
+                                        <a href="javascript:printTable()" class="btn btn-primary">Print Tabel</a>
+                                    </div>
+                                </div>
+                                <table id="inventoryTable"
+                                    class="table table-bordered verticle-middle table-responsive-sm text-primary"
+                                    border="1">
                                     <thead>
                                         <tr>
                                             <th scope="col">Name</th>
@@ -175,4 +175,47 @@
             </div>
         </div>
     </div>
+
+    <style>
+        @media print {
+            table {
+                border-collapse: collapse;
+                border: 1px solid #000;
+            }
+
+            table,
+            th,
+            td {
+                border: 1px solid #000;
+            }
+
+            th,
+            td {
+                padding: 8px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+        }
+    </style>
+
+    <script>
+        function printTable() {
+            var printWindow = window.open('', '', 'width=800,height=600');
+            printWindow.document.open();
+            printWindow.document.write('<html><head><title>Print Tabel</title>');
+            printWindow.document.write(
+                '<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">'
+            ); // Ganti dengan path CSS Anda yang sesuai
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(
+                '<table class="table table-bordered verticle-middle table-responsive-sm text-primary" border="1">' +
+                document.getElementById('inventoryTable').innerHTML + '</table>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    </script>
 @endsection
