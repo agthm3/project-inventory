@@ -51,7 +51,7 @@ class InventoryController extends Controller
 
         // Logika filter berdasarkan Name
         if ($request->filled('filter_name')) {
-            $query->where('name', 'LIKE', "%{$request->filter_name}%");
+            $query->where('user', 'LIKE', "%{$request->filter_name}%");
         }
         // Filter Received By
         if ($request->filled('filter_receivedby')) {
