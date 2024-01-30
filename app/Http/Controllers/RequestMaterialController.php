@@ -23,8 +23,20 @@ class RequestMaterialController extends Controller
 
 public function getDetailsByName($name)
 {
-    $data = InputData::where('name', $name)->first(['ponumber', 'quantity']);
-    return response()->json($data);
+    $items = InputData::where('name', $name)->get(['ponumber', 'quantity']);
+    return response()->json($items);
+}
+
+public function getAllNamesWithPoNumbers()
+{
+    $items = InputData::all()->map(function ($item) {
+        return [
+            'label' => $item->name . ' (' . $item->ponumber . ')', // Gabungan name dan ponumber
+            'ponumber' => $item->ponumber,
+            'quantity' => $item->quantity
+        ];
+    });
+    return response()->json($items);
 }
 
 public function getDetailsByPONumber($ponumber)
@@ -32,6 +44,7 @@ public function getDetailsByPONumber($ponumber)
     $data = InputData::where('ponumber', $ponumber)->first(['name', 'quantity']);
     return response()->json($data);
 }
+
 
 
 

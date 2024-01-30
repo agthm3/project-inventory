@@ -21,6 +21,7 @@ class RequestMaterial extends Model
         'vehiclenumber',
         'status',
         'quantity',
+        'user'
     ];
 
 // Di dalam model RequestMaterial

@@ -24,6 +24,7 @@ $table->unsignedBigInteger('input_data_id')->nullable(); // Tambahkan baris ini
             $table->string('from_note');
             $table->string('to_note');
             $table->string('quantity');
+            $table->string('user');
    // Dalam migration file
             $table->string('image')->nullable()->default(null);
             $table->string('vehiclenumber')->default(null);

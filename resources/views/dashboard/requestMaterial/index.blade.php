@@ -107,36 +107,65 @@
 
     <script>
         $(document).ready(function() {
+            $.ajax({
+                url: '/getAllNamesWithPoNumbers',
+                type: "GET",
+                dataType: "json",
+                success: function(items) {
+                    var nameSelect = $('#inputDataName');
+                    nameSelect.empty();
+                    items.forEach(function(item) {
+                        nameSelect.append($('<option>', {
+                            value: item.ponumber, // Gunakan ponumber sebagai value
+                            text: item.label, // Tampilkan label gabungan
+                            'data-quantity': item
+                                .quantity // Simpan quantity sebagai data attribute
+                        }));
+                    });
+                }
+            });
+
             $('#inputDataName').on('change', function() {
-                var name = $(this).val();
-                if (name) {
-                    $.ajax({
-                        url: '/getDetailsByName/' + name,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-                            $('#po-number').val(data.ponumber);
-                            $('#quantity').val(data.quantity);
-                        }
-                    });
-                }
-            });
+                var selectedOption = $(this).find('option:selected');
+                var poNumber = selectedOption.val();
+                var quantity = selectedOption.data('quantity');
 
-            $('#po-number').on('change', function() {
-                var poNumber = $(this).val();
-                if (poNumber) {
-                    $.ajax({
-                        url: '/getDetailsByPONumber/' + poNumber,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-                            $('#inputDataName').val(data.name).trigger('change');
-                            $('#quantity').val(data.quantity);
-                        }
-                    });
-                }
+                // Set poNumber dan quantity
+                $('#po-number').val(poNumber);
+                $('#quantity').val(quantity);
             });
+        });
+        $('#po-number').on('change', function() {
+            var poNumber = $(this).val();
+            if (poNumber) {
+                $.ajax({
+                    url: '/getDetailsByPONumber/' + poNumber,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        if (data) {
+                            // Update dropdown name
+                            var nameSelect = $('#inputDataName');
+                            nameSelect.empty();
+                            nameSelect.append($('<option>', {
+                                value: data.name,
+                                text: data.name,
+                                selected: true
+                            }));
 
+                            // Update quantity
+                            $('#quantity').val(data.quantity);
+                        } else {
+                            alert("Data tidak ditemukan");
+                            $('#inputDataName').empty();
+                            $('#quantity').val('');
+                        }
+                    }
+                });
+            } else {
+                $('#inputDataName').empty();
+                $('#quantity').val('');
+            }
         });
     </script>
 

@@ -41,9 +41,12 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/request-material', [RequestMaterialController::class, 'store'])->name('requestmaterial.store');
 
     Route::get('/getDetailsByName/{name}', [RequestMaterialController::class, 'getDetailsByName']);
-    Route::get('/getDetailsByPONumber/{ponumber}', [RequestMaterialController::class, 'getDetailsByPONumber']);
+   Route::get('/getDetailsByPONumber/{ponumber}', [RequestMaterialController::class, 'getDetailsByPONumber']);
+
 
     Route::get('/history-detail/{requestmaterial}', [HistoryController::class, 'show'])->name('history.show');
+    Route::get('/getAllNamesWithPoNumbers', [RequestMaterialController::class, 'getAllNamesWithPoNumbers']);
+
 
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
 });
