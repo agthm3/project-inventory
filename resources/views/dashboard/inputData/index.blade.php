@@ -40,6 +40,8 @@
                                     </div>
                                 @endif
                                 <form action="{{ route('inputdata.store') }}" method="post" enctype="multipart/form-data">
+
+
                                     @csrf
                                     {{-- name --}}
                                     <label for="name" class="mt-2 text-primary">Name</label>

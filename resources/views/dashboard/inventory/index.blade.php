@@ -24,6 +24,11 @@
                         <div class="card-header">
                             <h4 class="card-title">Daftar Inventori</h4>
                             <form action="{{ route('inventory.index') }}" method="GET">
+                                @if (Session::has('success'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                @endif
                                 <div class="row mb-3">
                                     <!-- Filter PO Number -->
                                     <div class="col-lg-3">
