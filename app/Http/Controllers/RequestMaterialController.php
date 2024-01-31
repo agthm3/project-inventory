@@ -6,6 +6,7 @@ use App\Models\InputData;
 use App\Models\RequestMaterial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class RequestMaterialController extends Controller
 {
@@ -97,6 +98,7 @@ public function getDetailsByPONumber($ponumber)
             'image' => null,
             'user' => $request->user
         ]);
+        Session::flash('success', 'Data berhasil dimasukkan.');
         return Redirect::back();
     }
 
