@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\InputDataController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\ManagementRoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestMaterialController;
 use App\Http\Controllers\VerificationController;
@@ -27,7 +28,9 @@ Route::middleware(['role'])->group(function(){
 
     Route::get('/verification', [VerificationController::class, 'index'])->name('verification.index');
     Route::post('/verification/action/{id}', [VerificationController::class, 'store'])->name('verification.action');
-});
+    Route::get('/role', [ManagementRoleController::class, 'index'])->name('managementrole.index');
+    Route::post('/role', [ManagementRoleController::class, 'action'])->name('managementrole.action');
+
 
 // input data
 
@@ -51,7 +54,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
 });
 
-
+});
 
 
 // verification

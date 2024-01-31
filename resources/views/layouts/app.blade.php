@@ -122,6 +122,8 @@
                             <li><a href="{{ route('history.index') }}">History</a></li>
                         </ul>
                     </li>
+                    <li class="nav-label first">Management Role</li>
+                    <li><a href="{{ route('managementrole.index') }}">Management Role</a></li>
                 </ul>
             </div>
         </div>
