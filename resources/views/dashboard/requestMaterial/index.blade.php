@@ -54,6 +54,8 @@
                                             @endforeach
                                         </select>
                                     </div>
+
+
                                     {{-- ponumber --}}
                                     <label for="po-number" class="mt-2">PO Number</label>
                                     <input id="po-number" type="number" name="ponumber"
@@ -63,6 +65,10 @@
                                     <p>Jumlah yang tampil adalah stok yang dimiliki, harap jangan melakukan request lebih
                                         dari stok.</p>
                                     <input id="quantity" name="quantity" type="number"
+                                        class="form-control input-default" />
+                                    {{-- user --}}
+                                    <label for="requestor" class="mt-2">User</label>
+                                    <input id="requestor" type="text" name="user"
                                         class="form-control input-default" />
                                     {{-- request data --}}
                                     <label for="request-date" class="mt-2">Request Date</label>
@@ -107,66 +113,67 @@
 
     <script>
         $(document).ready(function() {
+            // Muat nama-nama saat dokumen siap
             $.ajax({
                 url: '/getAllNamesWithPoNumbers',
                 type: "GET",
                 dataType: "json",
-                success: function(items) {
+                success: function(data) {
                     var nameSelect = $('#inputDataName');
                     nameSelect.empty();
-                    items.forEach(function(item) {
+                    data.forEach(function(item) {
                         nameSelect.append($('<option>', {
-                            value: item.ponumber, // Gunakan ponumber sebagai value
-                            text: item.label, // Tampilkan label gabungan
-                            'data-quantity': item
-                                .quantity // Simpan quantity sebagai data attribute
+                            value: item.label,
+                            text: item.label
                         }));
                     });
                 }
             });
 
             $('#inputDataName').on('change', function() {
-                var selectedOption = $(this).find('option:selected');
-                var poNumber = selectedOption.val();
-                var quantity = selectedOption.data('quantity');
+                var selectedLabel = $(this).val();
+                if (selectedLabel) {
+                    $.ajax({
+                        url: '/getAllNamesWithPoNumbers',
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            data.forEach(function(item) {
+                                if (item.label === selectedLabel) {
+                                    $('#po-number').val(item.ponumber);
+                                    $('#quantity').val(item.quantity);
+                                    $('#user').val(item.user);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
 
-                // Set poNumber dan quantity
-                $('#po-number').val(poNumber);
-                $('#quantity').val(quantity);
+            $('#po-number').on('change', function() {
+                var poNumber = $(this).val();
+                if (poNumber) {
+                    $.ajax({
+                        url: '/getAllNamesWithPoNumbers',
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            data.forEach(function(item) {
+                                if (item.ponumber === poNumber) {
+                                    $('#inputDataName').val(item.label);
+                                    $('#quantity').val(item.quantity);
+                                    $('#user').val(item.user);
+                                }
+                            });
+                        }
+                    });
+                }
             });
         });
-        $('#po-number').on('change', function() {
-            var poNumber = $(this).val();
-            if (poNumber) {
-                $.ajax({
-                    url: '/getDetailsByPONumber/' + poNumber,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        if (data) {
-                            // Update dropdown name
-                            var nameSelect = $('#inputDataName');
-                            nameSelect.empty();
-                            nameSelect.append($('<option>', {
-                                value: data.name,
-                                text: data.name,
-                                selected: true
-                            }));
-
-                            // Update quantity
-                            $('#quantity').val(data.quantity);
-                        } else {
-                            alert("Data tidak ditemukan");
-                            $('#inputDataName').empty();
-                            $('#quantity').val('');
-                        }
-                    }
-                });
-            } else {
-                $('#inputDataName').empty();
-                $('#quantity').val('');
-            }
-        });
     </script>
+
+
+
+
 
 @endsection

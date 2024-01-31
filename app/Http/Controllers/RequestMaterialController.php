@@ -23,25 +23,29 @@ class RequestMaterialController extends Controller
 
 public function getDetailsByName($name)
 {
-    $items = InputData::where('name', $name)->get(['ponumber', 'quantity']);
-    return response()->json($items);
+    $data = InputData::where('name', $name)->get(['ponumber', 'quantity', 'user']);
+    return response()->json($data);
 }
+
 
 public function getAllNamesWithPoNumbers()
 {
     $items = InputData::all()->map(function ($item) {
         return [
-            'label' => $item->name . ' (' . $item->ponumber . ')', // Gabungan name dan ponumber
+            'label' => $item->name . ' (' . $item->ponumber . ')',
             'ponumber' => $item->ponumber,
-            'quantity' => $item->quantity
+            'quantity' => $item->quantity,
+            'user' => $item->user
         ];
     });
     return response()->json($items);
 }
 
+
+
 public function getDetailsByPONumber($ponumber)
 {
-    $data = InputData::where('ponumber', $ponumber)->first(['name', 'quantity']);
+    $data = InputData::where('ponumber', $ponumber)->get(['name', 'quantity', 'user']);
     return response()->json($data);
 }
 
@@ -90,7 +94,8 @@ public function getDetailsByPONumber($ponumber)
             'to_note'=>$request->to_note,
             'quantity' => $request->quantity,
             'vehiclenumber'=> $request->vehiclenumber,
-            'image' => null
+            'image' => null,
+            'user' => $request->user
         ]);
         return Redirect::back();
     }

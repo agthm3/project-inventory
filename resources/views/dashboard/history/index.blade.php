@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @dd($allRequestHistory)
+    {{-- @dd($allRequestHistory) --}}
     <div class="content-body">
         <div class="container-fluid">
             <div class="row page-titles mx-0">
